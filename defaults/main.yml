@@ -1,0 +1,13 @@
+---
+app_name: app
+app_user: '{{ app_name }}'
+app_group: '{{ app_user }}'
+
+app_basepath: /opt/{{ app_name }}
+app_directory: '{{ app_name }}'
+
+app_description: Service {{ app_name }}
+app_service_file: templates/app.service.j2
+
+app_autostart: true
+app_service_execstart: ''

@@ -1,0 +1,23 @@
+[Unit]
+Description={{ app_description }}
+After=network.target
+
+[Service]
+Type={{ app_type }}
+User={{ app_user }}
+{% if app_directory %}
+RuntimeDirectory={{ app_directory }}/
+{% endif %}
+{% if app_basepath %}
+WorkingDirectory={{ app_basepath }}/
+{% endif %}
+{% for app_env in app_envs %}
+Environment="{{ app_env }}"
+{% endfor %}
+ExecStart={{ app_service_execstart }}
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target
