@@ -3,6 +3,9 @@ app_name: app
 app_user: '{{ app_name }}'
 app_group: '{{ app_user }}'
 
+app_type: simple
+app_envs: []
+
 app_basepath: /opt/{{ app_name }}
 app_directory: '{{ app_name }}'
 
