@@ -5,10 +5,10 @@ After=network.target
 [Service]
 Type={{ app_type }}
 User={{ app_user }}
-{% if app_directory %}
+{% if app_directory is defined %}
 RuntimeDirectory={{ app_directory }}/
 {% endif %}
-{% if app_basepath %}
+{% if app_basepath is defined %}
 WorkingDirectory={{ app_basepath }}/
 {% endif %}
 {% for app_env in app_envs %}
@@ -16,7 +16,13 @@ Environment="{{ app_env }}"
 {% endfor %}
 ExecStart={{ app_service_execstart }}
 ExecReload=/bin/kill -s HUP $MAINPID
+
+{% if app_kill_signal is defined %}
+KillSignal={{ app_kill_signal }}
+KillMode=control-group
+{% else %}
 KillMode=mixed
+{% endif %}
 TimeoutStopSec=5
 
 [Install]

@@ -3,13 +3,13 @@
   become: true
   ansible.builtin.template:
     src: '{{ app_service_file }}'
-    dest: /etc/systemd/system/{{ app_name }}.service
+    dest: '{{ app_service_file_location }}/{{ app_name }}.service'
     mode: preserve
 
 - name: Start service {{ app_name }}
   become: true
   ansible.builtin.systemd:
     name: '{{ app_name }}.service'
-    state: reloaded
+    state: '{{ "reloaded" if app_autostart else "stopped" }}'
     daemon_reload: true
     enabled: '{{ app_autostart }}'

@@ -14,3 +14,5 @@ app_service_file: templates/app.service.j2
 
 app_autostart: true
 app_service_execstart: ''
+
+app_service_file_location: /etc/systemd/system/
